@@ -17,7 +17,7 @@ const translations = {
     
     // Navigation
     'about': "About",
-    'experience': "Experience",
+    'experience': "Experiences",
     'skills': "Skills",
     'projects': "Projects",
     'blog': "Blog",
@@ -49,7 +49,7 @@ const translations = {
       'Providing quality support to production teams, collaborating in an Agile environment.'
     ],
     // Education Section
-    'education-title': "Educational Background",
+    'education-title': "Education",
     'mcgill-university': "McGill University",
     'ets-university': "École de Technologie Supérieure",
     'uqam-university': "Université du Québec à Montréal",
@@ -91,7 +91,7 @@ const translations = {
     'min-read': "min read",
 
     // Contact Section
-    'lets-work-together': "Let's Work Together",
+    'lets-work-together': "Let's work together",
     'contact-description': "I'm always interested in hearing about new projects and opportunities.",
     'get-in-touch': "Get in Touch",
 
@@ -106,15 +106,15 @@ const translations = {
     
     // Navigation
     'about': "À propos",
-    'experience': "Expérience",
+    'experience': "Expériences",
     'skills': "Compétences",
     'projects': "Projets",
     'blog': "Blog",
     'contact': "Contact",
-    'education': "Formation",
+    'education': "Formations",
 
     // Experience Section
-    'professional-experience': "Expérience Professionnelle",
+    'professional-experience': "Expériences",
     'present': "Présent",
     'experience-backend-consultant': "Développeur Back End | Consultant",
     'experience-backend': "Développeur Back End",
@@ -138,7 +138,7 @@ const translations = {
       'Assurer un support de qualité aux équipes de production, collaboration dans un environnement Agile.'
     ],
     // Education Section
-    'education-title': "Formation Académique",
+    'education-title': "Formations",
     'mcgill-university': "Université McGill",
     'ets-university': "École de Technologie Supérieure",
     'uqam-university': "Université du Québec à Montréal",
@@ -171,7 +171,7 @@ const translations = {
     'pos-platform': "Plateforme P.O.S",
     'pos-description': "Un projet complet de point de vente avec gestion des stocks en temps réel et traitement des paiements.",
     'basketball-platform': "Système de Gestion des Sessions de Basketball",
-    'basketball-description': "Une plateforme complète pour gérer les sessions d'entraînement de basketball, les statistiques des joueurs et les horaires des équipes avec des mises à jour en temps réel.",
+    'basketball-description': "Une plateforme complète pour gérer les sessions d'entraînement de basketball.",
     // Blog Section
     'latest-articles': "Derniers Articles",
     'read-on-medium': "Lire sur Medium",
@@ -179,7 +179,7 @@ const translations = {
     'min-read': "min de lecture",
 
     // Contact Section
-    'lets-work-together': "Travaillons Ensemble",
+    'lets-work-together': "Travaillons ensemble",
     'contact-description': "Je suis toujours intéressé par de nouveaux projets et opportunités.",
     'get-in-touch': "Me Contacter",
 

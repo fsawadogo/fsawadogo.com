@@ -118,7 +118,7 @@ function App() {
       }`}>
         <div className="container mx-auto flex justify-between items-center px-6">
           <span className="text-2xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">
-            Faïçal
+            Faïçal Sawadogo
           </span>
 
           <div className="flex items-center gap-6">
@@ -235,9 +235,9 @@ function App() {
               </p>
               <div className="flex flex-wrap gap-6">
                 {[
-                  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-                  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-                  { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' }
+                  { icon: Github, href: 'https://github.com/fsawadogo', label: 'GitHub' },
+                  { icon: Linkedin, href: 'https://www.linkedin.com/in/afsawadogo', label: 'LinkedIn' },
+                  { icon: Mail, href: 'mailto:contact@fsawadogo.me', label: 'Email' }
                 ].map(({ icon: Icon, href, label }) => (
                   <a
                     key={label}
@@ -690,7 +690,7 @@ function App() {
             {t('contact-description')}
           </p>
           <a 
-            href="mailto:contact@example.com"
+            href="mailto:contact@fsawadogo.me"
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-500 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5 group text-white"
           >
             <Mail size={20} className="transform transition-transform group-hover:scale-110" />

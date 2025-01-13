@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Server, Code2, Database, Globe2, FileDown, Menu, X, BookOpen, Calendar, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, Mail, Server, Code2, Database, Globe2, FileDown, Menu, X, BookOpen, Calendar, Sun, Moon, GraduationCap, ChevronUp } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 import { useLanguage } from './LanguageContext';
 
@@ -8,12 +8,14 @@ function App() {
   const [activeSection, setActiveSection] = useState('about');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAllArticles, setShowAllArticles] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      setShowScrollTop(window.scrollY > 500);
 
       const sections = document.querySelectorAll('section, header');
       let currentSection = 'about';
@@ -41,11 +43,15 @@ function App() {
     setIsMenuOpen(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const articles = [
     {
       title: "Understanding Dependency Injection in ASP.NET Core Web API",
       date: "Dec 22, 2024",
-      image: "./images/dependency-injection.jpg",
+      image: "/images/dependency-injection.jpg",
       description: "Learn about dependency injection patterns and implementation in ASP.NET Core Web API.",
       link: "https://medium.com/@faycalsawadogo/understanding-dependency-injection-in-asp-net-core-web-api-86ea80bd896a",
       readTime: "5 min read"
@@ -53,7 +59,7 @@ function App() {
     {
       title: "Understanding Behavior-Driven Development (BDD) and Implementing it with SpecFlow",
       date: "Feb 16, 2024",
-      image: "./images/behavior-driven-development.webp",
+      image: "/images/behavior-driven-development.webp",
       description: "Explore BDD principles and practical implementation using SpecFlow in .NET projects.",
       link: "https://medium.com/@faycalsawadogo/understanding-behavior-driven-development-bdd-and-implementing-it-with-specflow-d1b52163c106",
       readTime: "7 min read"
@@ -61,7 +67,7 @@ function App() {
     {
       title: "Ensuring Software Excellence: The Importance of Quality Assurance",
       date: "May 1, 2023",
-      image: "./images/quality-assurance.jpg",
+      image: "/images/quality-assurance.jpg",
       description: "Discover the critical role of quality assurance in software development and how it ensures product excellence.",
       link: "https://medium.com/@faycalsawadogo/ensuring-software-excellence-the-importance-of-quality-assurance-in-software-development-5695da183156",
       readTime: "6 min read"
@@ -69,7 +75,7 @@ function App() {
     {
       title: "Programmers, Developers, and Software Engineers: What's the Difference?",
       date: "Feb 27, 2023",
-      image: "./images/software-engineer.jpg",
+      image: "/images/software-engineer.jpg",
       description: "Understanding the distinct roles and responsibilities in the software development industry.",
       link: "https://medium.com/@faycalsawadogo/programmers-developers-and-software-engineers-whats-the-difference-a3abe8effda2",
       readTime: "5 min read"
@@ -77,7 +83,7 @@ function App() {
     {
       title: "Unlock the Power of AI: 3 Tools You Need to Know About",
       date: "Feb 5, 2023",
-      image: "./images/ai-tools.jpg",
+      image: "/images/ai-tools.jpg",
       description: "Explore essential AI tools that can revolutionize your workflow and boost productivity.",
       link: "https://medium.com/@faycalsawadogo/unlock-the-power-of-ai-3-tools-you-need-to-know-about-ef4612a3e30",
       readTime: "4 min read"
@@ -85,7 +91,7 @@ function App() {
     {
       title: "Top 3 Powerful AI Tools You Must Have in 2023",
       date: "Jan 17, 2023",
-      image: "./images/powerful-ai-tools.jpg",
+      image: "/images/powerful-ai-tools.jpg",
       description: "Discover the most impactful AI tools that are reshaping the technology landscape in 2023.",
       link: "https://medium.com/@faycalsawadogo/top-3-powerful-ai-tools-you-must-have-in-2023-d918a092bffb",
       readTime: "5 min read"
@@ -93,6 +99,8 @@ function App() {
   ];
 
   const displayedArticles = showAllArticles ? articles : articles.slice(0, 3);
+
+  const navItems = ['about', 'experience', 'education', 'skills', 'projects', 'blog', 'contact'];
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
@@ -151,7 +159,7 @@ function App() {
             </button>
 
             <div className="hidden md:flex space-x-8">
-              {['about', 'experience', 'skills', 'projects', 'blog', 'contact'].map((item) => (
+              {navItems.map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -180,7 +188,7 @@ function App() {
               : 'bg-white/95 backdrop-blur-sm border-t border-gray-200/50'
           } shadow-lg`}>
             <div className="flex flex-col p-6 space-y-4">
-              {['about', 'experience', 'skills', 'projects', 'blog', 'contact'].map((item) => (
+              {navItems.map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -201,58 +209,60 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <header id="about" className={`container mx-auto px-6 pt-32 pb-16 md:pt-40 md:pb-32 ${
-        theme === 'dark' ? 'text-white' : 'text-gray-900'
-      }`}>
-        <div className="max-w-3xl relative">
-          <div className="absolute -top-20 -left-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute top-40 -right-20 w-72 h-72 bg-emerald-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
-          
-          <div className="relative">
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 relative">
-              {t('hi-im')}{' '}
-              <span className="relative inline-block">
-                <span className="relative z-10 bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">
-                  Faïçal
+      <header id="about" className="min-h-screen flex items-center justify-center relative">
+        <div className={`container mx-auto px-6 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
+          <div className="max-w-3xl mx-auto relative">
+            <div className="absolute -top-20 -left-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute top-40 -right-20 w-72 h-72 bg-emerald-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
+            
+            <div className="relative">
+              <h1 className="text-5xl md:text-7xl font-bold mb-8 relative">
+                {t('hi-im')}{' '}
+                <span className="relative inline-block">
+                  <span className="relative z-10 bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">
+                    Faïçal
+                  </span>
+                  <span className="absolute -bottom-2 left-0 w-full h-3 bg-emerald-400/20 -skew-x-12 transform -rotate-1" />
                 </span>
-                <span className="absolute -bottom-2 left-0 w-full h-3 bg-emerald-400/20 -skew-x-12 transform -rotate-1" />
-              </span>
-              <span className="inline-block animate-wave origin-[70%_70%]">👋</span>
-            </h1>
-            <p className={`text-xl md:text-2xl leading-relaxed mb-10 [text-wrap:balance] ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              {t('developer-intro')}
-            </p>
-            <div className="flex flex-wrap gap-6">
-              {[
-                { icon: Github, href: 'https://github.com/fsawadogo', label: 'GitHub' },
-                { icon: Linkedin, href: 'https://www.linkedin.com/in/afsawadogo/', label: 'LinkedIn' },
-                { icon: Mail, href: 'mailto:contact@fsawadogo.com', label: 'Email' }
-              ].map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className={`p-3 transition-all duration-200 rounded-xl ${
-                    theme === 'dark'
-                      ? 'bg-gray-800/50 hover:bg-gray-700/50'
-                      : 'bg-gray-200/50 hover:bg-gray-300/50'
-                  } hover:text-emerald-500 hover:scale-110`}
+                <span className="inline-block animate-wave origin-[70%_70%]">👋🏾</span>
+              </h1>
+              <p className={`text-xl md:text-2xl leading-relaxed mb-10 [text-wrap:balance] ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                {t('developer-intro')}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                {[
+                  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+                  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                  { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' }
+                ].map(({ icon: Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className={`p-3 transition-all duration-200 rounded-xl ${
+                      theme === 'dark'
+                        ? 'bg-gray-800/50 hover:bg-gray-700/50'
+                        : 'bg-gray-200/50 hover:bg-gray-300/50'
+                    } hover:text-emerald-500 hover:scale-110`}
+                  >
+                    <Icon size={24} />
+                  </a>
+                ))}
+                <a 
+                  href="/resume.pdf" 
+                  download
+                  className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-600 to-green-500 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5 text-white"
                 >
-                  <Icon size={24} />
+                  <FileDown size={20} />
+                  {t('download-resume')}
                 </a>
-              ))}
-              <a 
-                href="./cv/resume.pdf" 
-                download
-                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-600 to-green-500 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5 text-white"
-              >
-                <FileDown size={20} />
-                {t('download-resume')}
-              </a>
+              </div>
             </div>
           </div>
         </div>
@@ -274,31 +284,21 @@ function App() {
           <div className="max-w-4xl mx-auto space-y-16">
             {[
               {
-                title: t('professional-experience-astus'),
+                title: t('experience-backend-consultant'),
                 company: 'Astus Inc.',
                 period: 'Fév 2024 - Présent',
                 location: 'Longueuil',
-                achievements: [
-                  'Concevoir, développer et mettre en place d\'applications C# de haute performance conçues pour les environnements distribués.',
-                  'Collaborer étroitement avec les architectes pour concevoir des solutions logicielles flexibles, basées sur les principes des systèmes distribués',
-                  'Gérer des bases de données SQL Server, incluant la conception de schémas et l\'optimisation des requêtes SQL pour des performances optimales.',
-                  'Optimiser les performances des applications, résoudre des problèmes complexes et effectuer des tests approfondis.'
-                ]
+                achievements: t('experience-achievement-astus')
               },
               {
-                title: 'Développeur Back End | Consultant',
+                title: t('experience-fullstack'),
                 company: 'Beeye',
                 period: 'Juil 2023 - Oct 2023',
                 location: 'Montreal',
-                achievements: [
-                  'Développer et maintenir des systèmes back-end en utilisant C#, Blazor Server, GraphQL et JavaScript.',
-                  'Conception et mise en œuvre d\'API RESTful, optimisant les performances des points de terminaison.',
-                  'Collaboration avec l\'équipe front-end pour définir les exigences de l\'API et résoudre les problèmes.',
-                  'Bases de données gérées et optimisées en SQL, améliorant l\'efficacité des requêtes.'
-                ]
+                achievements: t('experience-achievement-beeye')
               },
               {
-                title: 'Développeur Back End',
+                title: t('experience-backend'),
                 company: 'Ubisoft',
                 period: '2020 - Juil 2023',
                 location: 'Montreal',
@@ -351,6 +351,86 @@ function App() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" className={`py-24 relative overflow-hidden ${
+        theme === 'dark' ? 'text-white' : 'text-gray-900'
+      }`}>
+        <div className={`absolute inset-0 ${
+          theme === 'dark'
+            ? 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/10 via-transparent to-transparent'
+            : 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-100/50 via-transparent to-transparent'
+        }`} />
+        <div className="container mx-auto px-6 relative">
+          <h2 className="text-4xl font-bold mb-16 text-center">
+            {t('education-title')}
+          </h2>
+          <div className="max-w-4xl mx-auto space-y-16">
+            {[
+              {
+                university: t('mcgill-university'),
+                degree: t('data-science-cert'),
+                period: t('education-period1'),
+                description: t('education-description1'),
+                courses: t('courses-ds')
+              },
+              {
+                university: t('ets-university'),
+                degree: t('masters-degree'),
+                period: t('education-period2'),
+                description: t('education-description2'),
+                courses: t('courses-masters')
+              },
+              {
+                university: t('uqam-university'),
+                degree: t('bachelors-degree'),
+                period: t('education-period3'),
+                description: t('education-description3'),
+                courses: t('courses-bachelors')
+              }
+            ].map((education, index) => (
+              <div
+                key={index}
+                className="relative pl-12 group"
+              >
+                <div className="absolute left-0 top-0 h-full w-0.5 bg-gradient-to-b from-emerald-400 via-emerald-500 to-transparent" />
+                <div className={`absolute w-6 h-6 rounded-full -left-[11px] top-2 border-2 border-emerald-400 group-hover:scale-125 transition-transform duration-300 ${
+                  theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+                }`}>
+                  <GraduationCap className="w-3 h-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-emerald-400" />
+                </div>
+                <div className="mb-4">
+                  <div className="flex flex-wrap items-center gap-4 mb-2">
+                    <h3 className={`text-2xl font-semibold ${
+                      theme === 'dark'
+                        ? 'bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent'
+                        : 'text-gray-900'
+                    }`}>
+                      {education.university}
+                    </h3>
+                    <span className="text-emerald-500 font-medium">• {education.degree}</span>
+                  </div>
+                  <p className={`flex items-center gap-2 ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
+                    <Calendar size={16} />
+                    {education.period}
+                  </p>
+                </div>
+                <div className={`space-y-4 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  <p>{education.description}</p>
+                  <div>
+                    <h4 className="font-semibold mb-2 text-emerald-500">{t('key-courses')}</h4>
+                    <p>{education.courses}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -429,16 +509,26 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {[
               {
-                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-                title: t('ecommerce-platform'),
-                description: t('ecommerce-description'),
-                tags: ["React", "Node.js", "MongoDB", "Stripe"]
+                image: "https://images.unsplash.com/photo-1602665742701-389671bc40c0?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                title: t('pos-platform'),
+                description: t('pos-description'),
+                techLogos: [
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/dotnetcore/dotnetcore-original.svg",
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg",
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg"
+                ]
               },
               {
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-                title: t('analytics-dashboard'),
-                description: t('analytics-description'),
-                tags: ["Vue.js", "Python", "PostgreSQL", "D3.js"]
+                image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80",
+                title: t('basketball-platform'),
+                description: t('basketball-description'),
+                techLogos: [
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/dotnetcore/dotnetcore-original.svg",
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg",
+                  "https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg"
+                ]
               }
             ].map((project, index) => (
               <div
@@ -470,18 +560,16 @@ function App() {
                     }`}>
                       {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, i) => (
-                        <span 
-                          key={i} 
-                          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                            theme === 'dark'
-                              ? 'bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20'
-                              : 'bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20'
+                    <div className="flex flex-wrap gap-4">
+                      {project.techLogos.map((logo, i) => (
+                        <img 
+                          key={i}
+                          src={logo}
+                          alt={`Technology ${i + 1}`}
+                          className={`w-8 h-8 transition-transform hover:scale-110 ${
+                            theme === 'dark' ? 'filter invert' : ''
                           }`}
-                        >
-                          {tag}
-                        </span>
+                        />
                       ))}
                     </div>
                   </div>
@@ -549,7 +637,7 @@ function App() {
                       {article.title}
                     </h3>
                     <p className={`mb-6 line-clamp-2 ${
-                      theme === 'dark' ? 'text-gray- 400' : 'text-gray-600'
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                     }`}>
                       {article.description}
                     </p>
@@ -620,6 +708,17 @@ function App() {
           <p>{t('based-in')}</p>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 p-3 rounded-full bg-emerald-500 text-white shadow-lg transition-all duration-300 ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        } hover:bg-emerald-600 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 z-50`}
+        aria-label="Scroll to top"
+      >
+        <ChevronUp size={24} />
+      </button>
 
       {/* Add styles for wave animation */}
       <style>{`

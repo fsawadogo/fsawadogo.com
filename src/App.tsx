@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Server, Code2, Database, Globe2, FileDown, Menu, X, BookOpen, Calendar, Sun, Moon, GraduationCap, ChevronUp } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 import { useLanguage } from './LanguageContext';
+import { articles } from './data/articles';
 
-function App() {
+export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,60 +48,9 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const articles = [
-    {
-      title: "Understanding Dependency Injection in ASP.NET Core Web API",
-      date: "Dec 22, 2024",
-      image: "/images/dependency-injection.jpg",
-      description: "Learn about dependency injection patterns and implementation in ASP.NET Core Web API.",
-      link: "https://medium.com/@faycalsawadogo/understanding-dependency-injection-in-asp-net-core-web-api-86ea80bd896a",
-      readTime: "5 min read"
-    },
-    {
-      title: "Understanding Behavior-Driven Development (BDD) and Implementing it with SpecFlow",
-      date: "Feb 16, 2024",
-      image: "/images/behavior-driven-development.webp",
-      description: "Explore BDD principles and practical implementation using SpecFlow in .NET projects.",
-      link: "https://medium.com/@faycalsawadogo/understanding-behavior-driven-development-bdd-and-implementing-it-with-specflow-d1b52163c106",
-      readTime: "7 min read"
-    },
-    {
-      title: "Ensuring Software Excellence: The Importance of Quality Assurance",
-      date: "May 1, 2023",
-      image: "/images/quality-assurance.jpg",
-      description: "Discover the critical role of quality assurance in software development and how it ensures product excellence.",
-      link: "https://medium.com/@faycalsawadogo/ensuring-software-excellence-the-importance-of-quality-assurance-in-software-development-5695da183156",
-      readTime: "6 min read"
-    },
-    {
-      title: "Programmers, Developers, and Software Engineers: What's the Difference?",
-      date: "Feb 27, 2023",
-      image: "/images/software-engineer.jpg",
-      description: "Understanding the distinct roles and responsibilities in the software development industry.",
-      link: "https://medium.com/@faycalsawadogo/programmers-developers-and-software-engineers-whats-the-difference-a3abe8effda2",
-      readTime: "5 min read"
-    },
-    {
-      title: "Unlock the Power of AI: 3 Tools You Need to Know About",
-      date: "Feb 5, 2023",
-      image: "/images/ai-tools.jpg",
-      description: "Explore essential AI tools that can revolutionize your workflow and boost productivity.",
-      link: "https://medium.com/@faycalsawadogo/unlock-the-power-of-ai-3-tools-you-need-to-know-about-ef4612a3e30",
-      readTime: "4 min read"
-    },
-    {
-      title: "Top 3 Powerful AI Tools You Must Have in 2023",
-      date: "Jan 17, 2023",
-      image: "/images/powerful-ai-tools.jpg",
-      description: "Discover the most impactful AI tools that are reshaping the technology landscape in 2023.",
-      link: "https://medium.com/@faycalsawadogo/top-3-powerful-ai-tools-you-must-have-in-2023-d918a092bffb",
-      readTime: "5 min read"
-    }
-  ];
-
   const displayedArticles = showAllArticles ? articles : articles.slice(0, 3);
 
-  const navItems = ['about', 'experience', 'education', 'skills', 'projects', 'blog', 'contact'];
+  const navItems = ['about', 'experience', 'education', 'skills', 'blog', 'contact'];
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
@@ -302,12 +252,7 @@ function App() {
                 company: 'Ubisoft',
                 period: '2020 - Juil 2023',
                 location: 'Montreal',
-                achievements: [
-                  'Travailler sur la conception et le développement d\'une architecture de microservices utilisant C#, ASP.NET Core, MySQL.',
-                  'Implémenter les pipelines d\'intégration continue et de déploiement continu (CI/CD).',
-                  'Implémenter les métriques (Prometheus) et créer des tableaux de bord (Grafana, Splunk).',
-                  'Assurer un support de qualité aux équipes de production, collaboration dans un environnement Agile.'
-                ]
+                achievements: t('experience-achievement-ubisoft')
               }
             ].map((experience, index) => (
               <div
@@ -337,7 +282,7 @@ function App() {
                   </p>
                 </div>
                 <ul className="space-y-3">
-                  {experience.achievements.map((achievement, i) => (
+                  {Array.isArray(experience.achievements) ? experience.achievements.map((achievement, i) => (
                     <li 
                       key={i} 
                       className={`flex items-start gap-2 group/item transition-colors ${
@@ -349,7 +294,7 @@ function App() {
                       <span className="mt-2 w-1.5 h-1.5 bg-emerald-400 rounded-full flex-shrink-0 group-hover/item:scale-125 transition-transform" />
                       {achievement}
                     </li>
-                  ))}
+                  )) : null}
                 </ul>
               </div>
             ))}
@@ -496,7 +441,7 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className={`py-24 relative overflow-hidden ${
+      {/* <section id="projects" className={`py-24 relative overflow-hidden ${
         theme === 'dark' ? 'text-white' : 'text-gray-900'
       }`}>
         <div className={`absolute inset-0 ${
@@ -578,7 +523,7 @@ function App() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Blog Section */}
       <section id="blog" className={`py-24 relative overflow-hidden ${
@@ -632,7 +577,7 @@ function App() {
                     <h3 className={`text-xl font-semibold mb-3 line-clamp-2 transition-colors ${
                       theme === 'dark'
                         ? 'group-hover:text-emerald-400'
-                        : 'group-hover:text-emerald-600'
+                        : 'group-hover:text-emer ald-600'
                     }`}>
                       {article.title}
                     </h3>
@@ -737,5 +682,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
